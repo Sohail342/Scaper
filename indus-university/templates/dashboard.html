@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indus University LMS - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header>
+            {% set session_id = request.query_params.get('session', '') %}
+            {% include "navigation.html" %}
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-6">
+            <!-- Welcome Banner -->
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-md p-6 mb-6 text-white">
+                <h2 class="text-2xl font-bold mb-2">Welcome back, Student!</h2>
+                <p>You have 3 upcoming assignments and 2 new announcements.</p>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Announcements -->
+                <div class="md:col-span-2">
+                    <div class="bg-white rounded-lg shadow-md p-6 h-full">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">Announcements</h3>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View All</a>
+                        </div>
+                        <div id="announcements" class="space-y-4">
+                            <!-- Announcements will be loaded here -->
+                            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                <div class="flex justify-between">
+                                    <h4 class="font-semibold text-gray-800">Mid-Term Exam Schedule</h4>
+                                    <span class="text-sm text-gray-500">2 days ago</span>
+                                </div>
+                                <p class="text-gray-600 mt-1">The mid-term examination schedule has been published. Please check your exam dates and venues.</p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-4 py-2">
+                                <div class="flex justify-between">
+                                    <h4 class="font-semibold text-gray-800">Library Hours Extended</h4>
+                                    <span class="text-sm text-gray-500">1 week ago</span>
+                                </div>
+                                <p class="text-gray-600 mt-1">The university library will remain open until 10 PM during the exam preparation period.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links Sidebar -->
+                <div class="">
+                    {% include "sidebar.html" %}
+                            <li>
+                                <a href="#" class="flex items-center p-3 rounded-md hover:bg-gray-100 transition-colors">
+                                    <div class="bg-purple-100 p-2 rounded-md mr-3">
+                                        <i class="fas fa-file-alt text-purple-600"></i>
+                                    </div>
+                                    <span>Exam Results</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center p-3 rounded-md hover:bg-gray-100 transition-colors">
+                                    <div class="bg-yellow-100 p-2 rounded-md mr-3">
+                                        <i class="fas fa-money-bill-wave text-yellow-600"></i>
+                                    </div>
+                                    <span>Fee Payment</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Section -->
+            <h3 class="text-xl font-bold text-gray-800 mt-8 mb-4">My Courses</h3>
+            <div id="courses" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Courses will be loaded here -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-3 bg-blue-600"></div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg mb-2">Introduction to Computer Science</h4>
+                        <p class="text-gray-600 mb-4">Dr. John Smith</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">In Progress</span>
+                            <span>3 assignments due</span>
+                        </div>
+                        <a href="#" class="mt-4 block text-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">View Course</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-3 bg-green-600"></div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg mb-2">Calculus I</h4>
+                        <p class="text-gray-600 mb-4">Dr. Sarah Johnson</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded">In Progress</span>
+                            <span>1 assignment due</span>
+                        </div>
+                        <a href="#" class="mt-4 block text-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">View Course</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-3 bg-purple-600"></div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-lg mb-2">Physics for Engineers</h4>
+                        <p class="text-gray-600 mb-4">Dr. Michael Brown</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded">In Progress</span>
+                            <span>2 assignments due</span>
+                        </div>
+                        <a href="#" class="mt-4 block text-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">View Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Section -->
+            <h3 class="text-xl font-bold text-gray-800 mt-8 mb-4">Upcoming Events</h3>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div id="calendar" class="space-y-4">
+                    <!-- Calendar events will be loaded here -->
+                    <div class="flex items-start">
+                        <div class="bg-red-100 text-red-800 px-3 py-2 rounded-md text-center mr-4 w-16">
+                            <div class="font-bold">15</div>
+                            <div class="text-xs">MAY</div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Database Systems Assignment Due</h4>
+                            <p class="text-gray-600 text-sm">11:59 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 text-blue-800 px-3 py-2 rounded-md text-center mr-4 w-16">
+                            <div class="font-bold">18</div>
+                            <div class="text-xs">MAY</div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Mid-Term Exam: Computer Networks</h4>
+                            <p class="text-gray-600 text-sm">9:00 AM - 11:00 AM, Room 302</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-4">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; 2023 Indus University. All rights reserved.</p>
+                <div class="mt-2 text-sm text-gray-400">
+                    <a href="#" class="hover:text-white mx-2">Privacy Policy</a>
+                    <a href="#" class="hover:text-white mx-2">Terms of Service</a>
+                    <a href="#" class="hover:text-white mx-2">Contact Us</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle user menu
+        document.getElementById('userMenuBtn').addEventListener('click', function() {
+            document.getElementById('userMenu').classList.toggle('hidden');
+        });
+
+        // Close the menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('userMenu');
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            if (!userMenuBtn.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Fetch dashboard data
+        async function fetchDashboardData() {
+            try {
+                const response = await fetch('/dashboard');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Update announcements
+                    if (data.announcements && data.announcements.length > 0) {
+                        const announcementsContainer = document.getElementById('announcements');
+                        announcementsContainer.innerHTML = '';
+                        
+                        data.announcements.forEach(announcement => {
+                            const announcementEl = document.createElement('div');
+                            announcementEl.className = 'border-l-4 border-blue-500 pl-4 py-2';
+                            announcementEl.innerHTML = `
+                                <div class="flex justify-between">
+                                    <h4 class="font-semibold text-gray-800">${announcement.title}</h4>
+                                    <span class="text-sm text-gray-500">${announcement.date}</span>
+                                </div>
+                                <p class="text-gray-600 mt-1">${announcement.content}</p>
+                            `;
+                            announcementsContainer.appendChild(announcementEl);
+                        });
+                    }
+                    
+                    // Update courses
+                    if (data.courses && data.courses.length > 0) {
+                        const coursesContainer = document.getElementById('courses');
+                        coursesContainer.innerHTML = '';
+                        
+                        const colors = ['blue', 'green', 'purple', 'red', 'yellow', 'indigo'];
+                        
+                        data.courses.forEach((course, index) => {
+                            const color = colors[index % colors.length];
+                            const courseEl = document.createElement('div');
+                            courseEl.className = 'bg-white rounded-lg shadow-md overflow-hidden';
+                            courseEl.innerHTML = `
+                                <div class="h-3 bg-${color}-600"></div>
+                                <div class="p-6">
+                                    <h4 class="font-bold text-lg mb-2">${course.title}</h4>
+                                    <p class="text-gray-600 mb-4">${course.instructor}</p>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="bg-${color}-100 text-${color}-800 px-2 py-1 rounded">In Progress</span>
+                                        <span>Assignments due</span>
+                                    </div>
+                                    <a href="${course.url}" class="mt-4 block text-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">View Course</a>
+                                </div>
+                            `;
+                            coursesContainer.appendChild(courseEl);
+                        });
+                    }
+                } else {
+                    console.error('Failed to load dashboard data:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        }
+
+        // Load dashboard data when the page loads
+        document.addEventListener('DOMContentLoaded', fetchDashboardData);
+    </script>
+</body>
+</html>

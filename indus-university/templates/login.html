@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indus University Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="bg-blue-600 py-4 px-6">
+                    <h1 class="text-white text-2xl font-bold text-center">Indus University Portal</h1>
+                </div>
+                <div class="p-6">
+                    <form id="loginForm" class="space-y-4">
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                            <input type="text" id="username" name="username" required 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <input type="password" id="password" name="password" required 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                        </div>
+                        <div>
+                            <button type="submit" id="loginButton"
+                                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <span id="loginText">Login</span>
+                                <span id="loadingSpinner" class="hidden ml-2">
+                                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading spinner and disable button
+            const loginButton = document.getElementById('loginButton');
+            const loginText = document.getElementById('loginText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            loginButton.disabled = true;
+            loginText.textContent = 'Logging in...';
+            loadingSpinner.classList.remove('hidden');
+            
+            const formData = new FormData(this);
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(formData)
+                });
+                
+                const result = await response.json();
+                if (result.status === 'success') {
+                    // Show success message briefly
+                    loginText.textContent = 'Success!';
+                    loginButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                    loginButton.classList.add('bg-green-600', 'hover:bg-green-700');
+                    
+                    // Redirect to dashboard with session ID after a short delay
+                    setTimeout(() => {
+                        if (result.redirect_url) {
+                            window.location.href = result.redirect_url;
+                        } else if (result.session_id) {
+                            window.location.href = `/dashboard?session=${result.session_id}`;
+                        } else {
+                            window.location.href = '/dashboard';
+                        }
+                    }, 500);
+                } else {
+                    // Show error message
+                    loginText.textContent = 'Login';
+                    loadingSpinner.classList.add('hidden');
+                    loginButton.disabled = false;
+                    alert('Login failed: ' + result.message);
+                }
+            } catch (error) {
+                // Handle fetch errors
+                loginText.textContent = 'Login';
+                loadingSpinner.classList.add('hidden');
+                loginButton.disabled = false;
+                alert('Error connecting to server: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

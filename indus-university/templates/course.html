@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indus University LMS - Course Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header>
+            {% set session_id = request.query_params.get('session', '') %}
+            {% include "navigation.html" %}
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-6">
+            <!-- Course Header -->
+            <div id="course-header" class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+                <div class="h-4 bg-blue-600"></div>
+                <div class="p-6">
+                    <h2 id="course-title" class="text-2xl font-bold mb-2">Course Title</h2>
+                    <div class="flex flex-wrap items-center text-gray-600 mb-4">
+                        <div class="mr-6 mb-2">
+                            <i class="fas fa-user-tie mr-2"></i>
+                            <span id="course-instructor">Instructor Name</span>
+                        </div>
+                        <div class="mr-6 mb-2">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Spring 2023</span>
+                        </div>
+                        <div class="mb-2">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>Mon, Wed, Fri 10:00 - 11:30 AM</span>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-md">
+                        <h3 class="font-semibold mb-2">Course Description</h3>
+                        <p id="course-description" class="text-gray-700">This course provides an introduction to the fundamental concepts and principles of the subject. Students will learn theoretical foundations and practical applications through lectures, discussions, and hands-on exercises.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Navigation -->
+            <div class="bg-white rounded-lg shadow-md mb-6">
+                <nav class="flex overflow-x-auto">
+                    <button class="tab-button active px-6 py-3 font-medium text-gray-700 border-b-2 border-blue-600" data-tab="materials">Materials</button>
+                    <button class="tab-button px-6 py-3 font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300" data-tab="assignments">Assignments</button>
+                    <button class="tab-button px-6 py-3 font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300" data-tab="announcements">Announcements</button>
+                    <button class="tab-button px-6 py-3 font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300" data-tab="grades">Grades</button>
+                    <button class="tab-button px-6 py-3 font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300" data-tab="discussions">Discussions</button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Materials Tab -->
+                <div id="materials-tab" class="tab-pane active">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">Course Materials</h3>
+                        <div id="materials-list" class="space-y-4">
+                            <!-- Materials will be loaded here -->
+                            <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start">
+                                    <div class="bg-blue-100 p-3 rounded-md mr-4">
+                                        <i class="fas fa-file-pdf text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-semibold">Week 1: Introduction to the Course</h4>
+                                        <p class="text-gray-600 text-sm mt-1">PDF Lecture Notes</p>
+                                        <div class="mt-2">
+                                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Download</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start">
+                                    <div class="bg-green-100 p-3 rounded-md mr-4">
+                                        <i class="fas fa-file-powerpoint text-green-600 text-xl"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-semibold">Week 2: Core Concepts</h4>
+                                        <p class="text-gray-600 text-sm mt-1">PowerPoint Presentation</p>
+                                        <div class="mt-2">
+                                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Download</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start">
+                                    <div class="bg-red-100 p-3 rounded-md mr-4">
+                                        <i class="fas fa-video text-red-600 text-xl"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-semibold">Week 3: Advanced Topics</h4>
+                                        <p class="text-gray-600 text-sm mt-1">Video Lecture (45 min)</p>
+                                        <div class="mt-2">
+                                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Watch Online</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assignments Tab -->
+                <div id="assignments-tab" class="tab-pane hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">Assignments</h3>
+                        <div id="assignments-list" class="space-y-4">
+                            <!-- Assignments will be loaded here -->
+                            <div class="border border-gray-200 rounded-md p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-semibold">Assignment 1: Problem Set</h4>
+                                        <p class="text-gray-600 text-sm mt-1">Due: May 15, 2023 at 11:59 PM</p>
+                                        <p class="text-gray-700 mt-2">Complete problems 1-10 from Chapter 2 of the textbook.</p>
+                                    </div>
+                                    <div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">
+                                        Pending
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex space-x-3">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View Details</a>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Submit Assignment</a>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-md p-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-semibold">Assignment 2: Research Paper</h4>
+                                        <p class="text-gray-600 text-sm mt-1">Due: May 30, 2023 at 11:59 PM</p>
+                                        <p class="text-gray-700 mt-2">Write a 5-page research paper on a topic of your choice related to the course material.</p>
+                                    </div>
+                                    <div class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">
+                                        Not Started
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex space-x-3">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Announcements Tab -->
+                <div id="announcements-tab" class="tab-pane hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">Announcements</h3>
+                        <div id="course-announcements" class="space-y-4">
+                            <!-- Announcements will be loaded here -->
+                            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                <div class="flex justify-between">
+                                    <h4 class="font-semibold text-gray-800">Office Hours Change</h4>
+                                    <span class="text-sm text-gray-500">2 days ago</span>
+                                </div>
+                                <p class="text-gray-600 mt-1">Please note that office hours will be moved to Thursdays from 2-4 PM starting next week.</p>
+                            </div>
+                            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                <div class="flex justify-between">
+                                    <h4 class="font-semibold text-gray-800">Guest Lecture Announcement</h4>
+                                    <span class="text-sm text-gray-500">1 week ago</span>
+                                </div>
+                                <p class="text-gray-600 mt-1">We will have a guest lecturer from the industry next Monday. Attendance is mandatory.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grades Tab -->
+                <div id="grades-tab" class="tab-pane hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">Grades</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white">
+                                <thead>
+                                    <tr class="bg-gray-100 text-gray-700 text-left">
+                                        <th class="py-3 px-4 font-semibold">Assignment</th>
+                                        <th class="py-3 px-4 font-semibold">Due Date</th>
+                                        <th class="py-3 px-4 font-semibold">Status</th>
+                                        <th class="py-3 px-4 font-semibold">Grade</th>
+                                        <th class="py-3 px-4 font-semibold">Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="grades-list" class="divide-y divide-gray-200">
+                                    <!-- Grades will be loaded here -->
+                                    <tr>
+                                        <td class="py-3 px-4">Quiz 1</td>
+                                        <td class="py-3 px-4">April 10, 2023</td>
+                                        <td class="py-3 px-4"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Graded</span></td>
+                                        <td class="py-3 px-4">85/100</td>
+                                        <td class="py-3 px-4"><a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View Feedback</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4">Assignment 1</td>
+                                        <td class="py-3 px-4">May 15, 2023</td>
+                                        <td class="py-3 px-4"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Pending</span></td>
+                                        <td class="py-3 px-4">-</td>
+                                        <td class="py-3 px-4">-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discussions Tab -->
+                <div id="discussions-tab" class="tab-pane hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">Discussion Forums</h3>
+                        <div class="mb-6">
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                                <i class="fas fa-plus mr-2"></i> New Discussion
+                            </button>
+                        </div>
+                        <div id="discussions-list" class="space-y-4">
+                            <!-- Discussions will be loaded here -->
+                            <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between">
+                                    <h4 class="font-semibold">Week 3 Lecture Questions</h4>
+                                    <span class="text-sm text-gray-500">Last reply: 2 days ago</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600 mt-2">
+                                    <span class="mr-4"><i class="fas fa-comment mr-1"></i> 12 replies</span>
+                                    <span><i class="fas fa-user mr-1"></i> Started by: John Doe</span>
+                                </div>
+                                <a href="#" class="block mt-3 text-blue-600 hover:text-blue-800">View Discussion</a>
+                            </div>
+                            <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 transition-colors">
+                                <div class="flex justify-between">
+                                    <h4 class="font-semibold">Assignment 1 Clarification</h4>
+                                    <span class="text-sm text-gray-500">Last reply: 1 week ago</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600 mt-2">
+                                    <span class="mr-4"><i class="fas fa-comment mr-1"></i> 8 replies</span>
+                                    <span><i class="fas fa-user mr-1"></i> Started by: Jane Smith</span>
+                                </div>
+                                <a href="#" class="block mt-3 text-blue-600 hover:text-blue-800">View Discussion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-4">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; 2023 Indus University. All rights reserved.</p>
+                <div class="mt-2 text-sm text-gray-400">
+                    <a href="#" class="hover:text-white mx-2">Privacy Policy</a>
+                    <a href="#" class="hover:text-white mx-2">Terms of Service</a>
+                    <a href="#" class="hover:text-white mx-2">Contact Us</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Toggle user menu
+        document.getElementById('userMenuBtn').addEventListener('click', function() {
+            document.getElementById('userMenu').classList.toggle('hidden');
+        });
+
+        // Close the menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('userMenu');
+            const userMenuBtn = document.getElementById('userMenuBtn');
+            if (!userMenuBtn.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Tab navigation
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and panes
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active', 'border-blue-600', 'text-gray-700');
+                    btn.classList.add('text-gray-500', 'border-transparent');
+                });
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.add('hidden');
+                    pane.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding pane
+                this.classList.add('active', 'border-blue-600', 'text-gray-700');
+                this.classList.remove('text-gray-500', 'border-transparent');
+                
+                const tabId = this.getAttribute('data-tab');
+                const tabPane = document.getElementById(`${tabId}-tab`);
+                tabPane.classList.remove('hidden');
+                tabPane.classList.add('active');
+            });
+        });
+
+        // Fetch course data
+        async function fetchCourseData() {
+            try {
+                // Get course URL from the current page URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const courseUrl = urlParams.get('url');
+                
+                if (!courseUrl) {
+                    console.error('No course URL provided');
+                    return;
+                }
+                
+                const response = await fetch(`/course/${encodeURIComponent(courseUrl)}`);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Update course header
+                    document.getElementById('course-title').textContent = data.course_title || 'Course Title';
+                    document.getElementById('course-instructor').textContent = data.instructor || 'Instructor Name';
+                    document.getElementById('course-description').textContent = data.description || 'No description available.';
+                    
+                    // Update materials
+                    if (data.materials && data.materials.length > 0) {
+                        const materialsContainer = document.getElementById('materials-list');
+                        materialsContainer.innerHTML = '';
+                        
+                        data.materials.forEach(material => {
+                            const materialEl = document.createElement('div');
+                            materialEl.className = 'border border-gray-200 rounded-md p-4 hover:bg-gray-50 transition-colors';
+                            
+                            // Determine icon based on material type
+                            let iconClass = 'fa-file';
+                            let iconBgClass = 'bg-blue-100';
+                            let iconTextClass = 'text-blue-600';
+                            
+                            if (material.type.toLowerCase().includes('pdf')) {
+                                iconClass = 'fa-file-pdf';
+                                iconBgClass = 'bg-red-100';
+                                iconTextClass = 'text-red-600';
+                            } else if (material.type.toLowerCase().includes('powerpoint') || material.type.toLowerCase().includes('ppt')) {
+                                iconClass = 'fa-file-powerpoint';
+                                iconBgClass = 'bg-orange-100';
+                                iconTextClass = 'text-orange-600';
+                            } else if (material.type.toLowerCase().includes('video')) {
+                                iconClass = 'fa-video';
+                                iconBgClass = 'bg-purple-100';
+                                iconTextClass = 'text-purple-600';
+                            }
+                            
+                            materialEl.innerHTML = `
+                                <div class="flex items-start">
+                                    <div class="${iconBgClass} p-3 rounded-md mr-4">
+                                        <i class="fas ${iconClass} ${iconTextClass} text-xl"></i>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <h4 class="font-semibold">${material.title}</h4>
+                                        <p class="text-gray-600 text-sm mt-1">${material.type}</p>
+                                        <div class="mt-2">
+                                            <a href="${material.url}" class="text-blue-600 hover:text-blue-800 text-sm">Download</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            materialsContainer.appendChild(materialEl);
+                        });
+                    }
+                    
+                    // Update assignments
+                    if (data.assignments && data.assignments.length > 0) {
+                        const assignmentsContainer = document.getElementById('assignments-list');
+                        assignmentsContainer.innerHTML = '';
+                        
+                        data.assignments.forEach(assignment => {
+                            const assignmentEl = document.createElement('div');
+                            assignmentEl.className = 'border border-gray-200 rounded-md p-4';
+                            
+                            // Determine status badge
+                            let statusClass = 'bg-yellow-100 text-yellow-800';
+                            let statusText = 'Pending';
+                            
+                            if (assignment.status.toLowerCase().includes('not')) {
+                                statusClass = 'bg-red-100 text-red-800';
+                                statusText = 'Not Started';
+                            } else if (assignment.status.toLowerCase().includes('submit')) {
+                                statusClass = 'bg-green-100 text-green-800';
+                                statusText = 'Submitted';
+                            } else if (assignment.status.toLowerCase().includes('grade')) {
+                                statusClass = 'bg-blue-100 text-blue-800';
+                                statusText = 'Graded';
+                            }
+                            
+                            assignmentEl.innerHTML = `
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-semibold">${assignment.title}</h4>
+                                        <p class="text-gray-600 text-sm mt-1">Due: ${assignment.due_date}</p>
+                                        <p class="text-gray-700 mt-2">${assignment.description || 'No description available.'}</p>
+                                    </div>
+                                    <div class="${statusClass} px-3 py-1 rounded-full text-sm">
+                                        ${statusText}
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex space-x-3">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View Details</a>
+                                    ${statusText !== 'Graded' ? '<a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Submit Assignment</a>' : ''}
+                                </div>
+                            `;
+                            assignmentsContainer.appendChild(assignmentEl);
+                        });
+                    }
+                    
+                } else {
+                    console.error('Failed to load course data:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching course data:', error);
+            }
+        }
+
+        // Load course data when the page loads
+        document.addEventListener('DOMContentLoaded', fetchCourseData);
+    </script>
+</body>
+</html>
