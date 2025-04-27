@@ -1,6 +1,6 @@
 # Improved Indus University LMS Portal
 
-This project is an improved version of the Indus University Learning Management System (LMS) portal, featuring a modern UI and using Selenium in headless mode for web scraping instead of requests and BeautifulSoup.
+This project is an improved version of the Indus University Learning Management System (LMS) portal, featuring a modern UI and using Selenium in headless mode for web scraping.
 
 ## Features
 
